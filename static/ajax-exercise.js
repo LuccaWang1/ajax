@@ -37,34 +37,26 @@ function showWeather(evt) {
   }
 
 document.querySelector('#weather-form').addEventListener('submit', showWeather);
-
-
 // PART 3: ORDER MELONS
   // TODO: show the result message after your form
   // TODO: if the result code is ERROR, make it show up in red (see our CSS!)
 
-  // <div id="order-status"></div>
-  // we get back the JSON object (like a python dictionary)
-  // we have the div that we need to put our data into 
-
-  function updateMelons(results) {
-    if (results.code === 'OK') {
-      document.querySelector('#order-status').classList.remove('order-error');
-      document.querySelector('#order-status').innerHTML = `<p>${results.msg}</p>`;
-    } else {
-      document.querySelector('#order-status').classList.add('order-error');
-      document.querySelector('#order-status').innerHTML = `<p><b>${results.msg}</b></p>`;
-    }
+function updateMelons(results) {
+  if (results.code === 'OK') {
+    document.querySelector('#order-status').classList.remove('order-error');
+    document.querySelector('#order-status').innerHTML = `<p>${results.msg}</p>`;
+  } else {
+    document.querySelector('#order-status').classList.add('order-error');
+    document.querySelector('#order-status').innerHTML = `<p><b>${results.msg}</b></p>`;
+  }
   }
 
 function orderMelons(evt) {
   evt.preventDefault();
-  
   const formInputs = {
     melon_type: document.querySelector('#melon-type-field').value,
     qty: document.querySelector('#qty-field').value,
   };
-  
   fetch('/order-melons.json', {
     method: 'POST',
     body: JSON.stringify(formInputs),
